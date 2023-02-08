@@ -8,15 +8,6 @@ const FilterType = {
   FUTURE: 'future'
 };
 
-const filterTypes = [
-  {
-    name: FilterType.EVERYTHING
-  },
-  {
-    name: FilterType.FUTURE
-  }
-];
-
 const Mode = {
   DEFAULT: 'DEFAULT',
   EDITING: 'EDITING'
@@ -52,4 +43,4 @@ const TimeLimit = {
   UPPER_LIMIT: 1000,
 };
 
-export { Keys, FilterType, Mode, SortType, DISABLED_SORT_TYPES, UserAction, UpdateType, filterTypes, TYPES_POINT, TimeLimit };
+export { Keys, FilterType, Mode, SortType, DISABLED_SORT_TYPES, UserAction, UpdateType, TYPES_POINT, TimeLimit };

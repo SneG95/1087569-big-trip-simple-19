@@ -11,7 +11,7 @@ const BLANK_FORM = {
   dateTo: new Date(),
   destination: 1,
   offers: [],
-  type: 'taxi'
+  type: TYPES_POINT[0]
 };
 
 const createEventListTemplate = (type, types) => (
@@ -48,18 +48,13 @@ const createOffersTemplate = (offers, checkedOffers, isDisabled) => {
   }
 };
 
-const createPhotosTemplate = (photos) => {
-  if (photos.length > 0) {
-    return (
-      ` <div class="event__photos-container">
-          <div class="event__photos-tape">
-          ${photos.map(({src, description}) => `<img class="event__photo" src="${src}" alt="${description}">`).join('')}
-          </div>
-        </div>`);
-  } else {
-    return '';
-  }
-};
+const createPhotosTemplate = (photos) => (
+  `<div class="event__photos-container">
+    <div class="event__photos-tape">
+        ${photos.map(({src, description}) => `<img class="event__photo" src="${src}" alt="${description}">`).join('')}
+    </div>
+   </div>`
+);
 
 const createDestinationTemplate = (destination) => {
   const photos = destination.pictures;

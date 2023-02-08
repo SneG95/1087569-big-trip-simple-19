@@ -1,6 +1,6 @@
 import { render, replace, remove } from '../framework/render.js';
 import FilterView from '../view/filter-view.js';
-import { filterTypes, UpdateType, FilterType } from '../consts.js';
+import { UpdateType, FilterType } from '../consts.js';
 import { filter } from '../utils.js';
 
 export default class FilterPresenter {
@@ -18,14 +18,27 @@ export default class FilterPresenter {
     this.#filterModel.addObserver(this.#handleModelEvent);
   }
 
+  get filters() {
+    const points = this.#pointsModel.points;
+    return [
+      {
+        name: FilterType.EVERYTHING,
+        count: filter[FilterType.EVERYTHING](points).length
+      },
+      {
+        name: FilterType.FUTURE,
+        count: filter[FilterType.FUTURE](points).length
+      }
+    ];
+  }
+
   init() {
     const prevFilterComponent = this.#filterComponent;
 
     this.#filterComponent = new FilterView({
-      filters: filterTypes,
+      filters: this.filters,
       currentFilterType: this.#filterModel.filter,
-      onFilterTypeChange: this.#handleFilterTypeChange,
-      isDisabled: this.#checkDisabled()
+      onFilterTypeChange: this.#handleFilterTypeChange
     });
 
     if (prevFilterComponent === null) {
@@ -35,12 +48,6 @@ export default class FilterPresenter {
 
     replace(this.#filterComponent, prevFilterComponent);
     remove(prevFilterComponent);
-  }
-
-  #checkDisabled() {
-    const points = this.#pointsModel.points;
-    const futurePoints = filter[FilterType.FUTURE](points);
-    return futurePoints.length === 0 && this.#filterModel.filter === FilterType.EVERYTHING;
   }
 
   #handleModelEvent = () => {

@@ -99,7 +99,7 @@ export default class BoardPresenter {
       return;
     }
 
-    if (this.points.length === 0 || this.destinations.length === 0 || this.offers.length === 0) {
+    if (this.points.length === 0 || this.destinations.length === 0) {
       this.#renderListEmpty();
       return;
     }
